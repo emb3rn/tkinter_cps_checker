@@ -21,10 +21,10 @@ def bf_on_click(stringvar, window):
 
 def bf_start_timer(stringvar):
     start_time = time.time()
-    while (time.time() - start_time <= 5.02):
-        stringvar.set(f"Starting in: {round(time.time() - start_time, 1)}")
+    while (time.time() - start_time <= 4.99):
+        stringvar.set(f"Starting in: {round(5 - (time.time() - start_time), 1)}")
         window.update()
-        window.update_idletasks()
+        #window.update_idletasks()
     global started
     started = True
 
