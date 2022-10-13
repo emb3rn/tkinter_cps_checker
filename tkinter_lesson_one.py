@@ -24,7 +24,6 @@ def bf_start_timer(stringvar):
     while (time.time() - start_time <= 4.99):
         stringvar.set(f"Starting in: {round(5 - (time.time() - start_time), 1)}")
         window.update()
-        #window.update_idletasks()
     global started
     started = True
 
