@@ -6,27 +6,27 @@ cps = 0
 started = False
 
 def bf_on_click(stringvar, window):
+    global started, count
     if started:
-        global count
         count += 1
-
-        press_time = time.time()
         stringvar.set(f"Clicks: {str(count)}")
-        
-        while True:
-            if (press_time - time.time() > 3):
-                print("3 seconds passed")
-            window.update()
-            #window.update_idletasks()
 
-def bf_start_timer(stringvar):
+def bf_start_timer(stringvar, stringvar_cps, window):
+    global started, count
     start_time = time.time()
     while (time.time() - start_time <= 4.99):
         stringvar.set(f"Starting in: {round(5 - (time.time() - start_time), 1)}")
         window.update()
-    global started
+    
+    stringvar.set("Go!") 
     started = True
-
+    start_time = time.time() 
+    
+    while time.time() - start_time <= 5:
+        window.update()
+        window.update_idletasks()
+    stringvar_cps.set(f"Your clicks per second was: {count/5}")
+    
 
 # TKINTER WINDOW VARS
 window = tk.Tk("My Window", None, "Tk", True, False, None)
@@ -42,7 +42,7 @@ l_cps = tk.Label(window, compound=tk.BOTTOM, textvariable=str_cps).pack()
 l_start = tk.Label(window, compound=tk.BOTTOM, textvariable=str_start_time).pack(side=tk.TOP)
 
 b_start = tk.Button(window, text="Start", width=15, height=3,
-                    command=lambda: bf_start_timer(str_start_time)).pack()
+                    command=lambda: bf_start_timer(str_start_time, str_cps, window)).pack()
 
 b_click = tk.Button(window, text="Press to increase count", width=20, height=5,
                    command=lambda : bf_on_click(str_count, window)).pack(side=tk.BOTTOM)
